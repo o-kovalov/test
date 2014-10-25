@@ -12,9 +12,30 @@ var bodyParser = require('body-parser');
 var async = require('async');
 var crypto = require('crypto');
 var path = require('path');
-
 var configDB = require('./config/database.js');
-mongoose.connect('mongodb://localhost/test'); // connect to our database
+var mysql = require('mysql'),
+    mysqlUtilities = require('mysql-utilities');
+
+var connection = mysql.createConnection(configDB.mysql);
+
+connection.connect();
+// Mix-in for Data Access Methods and SQL Autogenerating Methods
+mysqlUtilities.upgrade(connection);
+
+// Mix-in for Introspection Methods
+mysqlUtilities.introspection(connection);
+
+connection.queryRow('SELECT * FROM actor', [], function(err, row) {
+    console.dir({queryRow:row});
+});
+
+connection.query('SELECT * FROM actor', function(err, rows, fields) {
+	if (err) throw err;
+	for (var i=0; i<rows.length; i++){
+		console.log('The solution is: ', rows[i].first_name);		
+  	}
+});
+mongoose.connect(configDB.uri); // connect to our database
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.json()); // get information from html forms
@@ -25,7 +46,7 @@ var staticPath = path.normalize(__dirname + '/../frontend');
 app.use(express.static(staticPath));
 
 // required for passport
-app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(session({ secret: 'sessionsecretsessionsecret' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
@@ -36,7 +57,7 @@ var viewRoutes = require('./view_routes/viewRoutes')(app);
 
 var server = app.listen(3000, function () {
   var port = server.address().port
-  console.log('Example app listening at http://localhost:%s', port)
+  console.log('app listening at http://localhost:%s', port)
 
 })
 
