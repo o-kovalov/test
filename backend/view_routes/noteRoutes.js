@@ -1,6 +1,8 @@
 var noteRepository = require('../repositories/noteRepository');
 var milestoneRepository = require('../repositories/milestoneRepository');
 var userRepository = require('../repositories/userRepository');
+var isLoggedIn = require('../middleware/isLoggedIn');
+
 module.exports = function(app) {
 	app.get('/notes', isLoggedIn, function(req, res) {
 		noteRepository.getAll(function(err, notes){
@@ -13,9 +15,3 @@ module.exports = function(app) {
 
 	});
 };
-function isLoggedIn(req, res, next) {
-	console.log('is logged in work');
-	if (req.isAuthenticated())
-		return next();
-	res.redirect('/');
-}

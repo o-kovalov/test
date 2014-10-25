@@ -5,6 +5,8 @@ var crypto= require('crypto');
 var User = require('../schemas/user');
 var nodemailer = require('nodemailer');
 var CityRepository = require('../repositories/cityRepository');
+var isLoggedIn = require('../middleware/isLoggedIn');
+
 module.exports = function(app) {
 
 	app.get('/', function(req, res) {
@@ -156,11 +158,3 @@ module.exports = function(app) {
 		});
 	});
 };
-
-
-function isLoggedIn(req, res, next) {
-	console.log('is logged in work');
-	if (req.isAuthenticated())
-		return next();
-	res.redirect('/');
-}

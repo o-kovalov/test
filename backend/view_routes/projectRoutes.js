@@ -1,4 +1,5 @@
 var ProjectRepository = require('../repositories/projectRepository');
+var isLoggedIn = require('../middleware/isLoggedIn');
 module.exports = function(app) {
 	app.get('/projects', isLoggedIn, function(req, res) {
 		ProjectRepository.getAll(function(err, projects){
@@ -9,9 +10,3 @@ module.exports = function(app) {
 
 	});
 };
-function isLoggedIn(req, res, next) {
-	console.log('is logged in work');
-	if (req.isAuthenticated())
-		return next();
-	res.redirect('/');
-}
