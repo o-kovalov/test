@@ -1,0 +1,7 @@
+i, a {
+	cursor: pointer;
+}
+[contenteditable]:hover:not(:focus) {
+	outline: 1px dotted gray;
+	cursor: pointer;
+}

@@ -1,0 +1,34 @@
+<div class="well">
+	<table class="table table-striped table-hover table-condensed">
+		<thead>
+			<tr>
+				<th> </th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>e-mail</th>
+				<th>Password</th>
+				<th>City</th>
+				<th>Options</th>				
+			</tr>
+		</thead>
+		<tbody>
+			<tr id="add-row">
+				<td></td>
+				<td><input id="add-firstName" type="text" placeholder="First Name"></input></td>
+				<td><input id="add-lastName" type="text" placeholder="Last Name"></input></td>
+				<td><input id="add-email" type="email" placeholder="example@mail.com"></input></td>
+				<td><input id="add-password" type="password" placeholder="password"></input></td>
+				<td>
+					<select id="add-cityId" size="1">
+						<% for(var i=0; i<cities.length; i++) { %>	
+							<option value=<%= cities[i]._id %>><%= cities[i].name %></option>
+						<% } %>
+					</select>	
+				</td>
+				<td>
+					<i class="fa fa-plus add-user"></i>
+				</td>				
+			</tr>
+		</tbody>
+	</table>
+</div>

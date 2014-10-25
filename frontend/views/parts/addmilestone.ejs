@@ -1,0 +1,32 @@
+<div class="well">
+	<table class="table table-striped table-hover table-condensed">
+		<thead>
+			<tr>
+				<th> </th>
+				<th>Name</th>
+				<th>Number</th>
+				<th>Comlete</th>
+				<th>Project</th>
+				<th>Options</th>				
+			</tr>
+		</thead>
+		<tbody>
+			<tr id="add-row" >
+				<td></td>
+				<td><input type="text" placeholder="Name" id="add-name"></input></td>
+				<td><input type="number" placeholder="0" id="add-number"></input></td>
+				<td><input type="number" placeholder="0" id="add-complete"></input></td>
+				<td>
+					<select id="add-project" size="1">
+						<% for(var i=0; i<projects.length; i++) { %>	
+							<option value=<%= projects[i]._id %>><%= projects[i].name %></option>
+						<% } %>
+					</select>	
+				</td>
+				<td>
+					<i class="fa fa-plus add-milestone"></i>
+				</td>				
+			</tr>
+		</tbody>
+	</table>
+</div>
