@@ -1,5 +1,5 @@
 var usersToProjectRepository = require('../repositories/usersToProjectRepository');
-var apiResponse = require('../middleware/apiResponse');
+var apiResponse = require('express-api-response');
 
 module.exports = function(app){
 	app.get('/usersToProject/:id', function(req, res, next){

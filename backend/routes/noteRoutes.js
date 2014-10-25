@@ -1,5 +1,5 @@
 var noteRepository = require('../repositories/noteRepository');
-var apiResponse = require('../middleware/apiResponse');
+var apiResponse = require('express-api-response');
 
 module.exports = function(app){
 	app.get('/note/:id', function(req, res, next){

@@ -1,5 +1,5 @@
 var milestoneRepository = require('../repositories/milestoneRepository');
-var apiResponse = require('../middleware/apiResponse');
+var apiResponse = require('express-api-response');
 
 module.exports = function(app){
 	app.get('/milestone/:id', function(req, res, next){

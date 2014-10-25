@@ -1,5 +1,5 @@
 var cityRepository = require('../repositories/cityRepository');
-var apiResponse = require('../middleware/apiResponse');
+var apiResponse = require('express-api-response');
 
 module.exports = function(app){
 	app.get('/city/:id', function(req, res, next){
