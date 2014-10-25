@@ -118,7 +118,9 @@ module.exports = function(app) {
 						return res.redirect('back');
 					}
 					user.update = Date.now();
-					user.password = user.generateHash(req.body.password);
+					var hashData = user.generateHash(req.body.password);
+					user.password = hashData.hash;
+					user.salt = hashData.salt;
 					user.resetPasswordToken = undefined;
 					user.resetPasswordExpires = undefined;
 					user.save(function(err) {

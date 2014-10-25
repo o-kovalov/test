@@ -12,7 +12,9 @@ UserRepository.prototype = new Repository();
 UserRepository.prototype.addUser = function(data, callback) {
 	var model = this.createModel();
 	console.log('data password=', data.password);
-	data.password = bcrypt.hashSync(data.password, bcrypt.genSaltSync(8), null)
+	var salt = bcrypt.genSaltSync(8);
+	data.password = bcrypt.hashSync(data.password, salt, null);
+	data.salt = salt;
 	var newitem = new model(data);
 	newitem.save(callback);
 };
