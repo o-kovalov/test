@@ -21,11 +21,16 @@ $(document).ready(function() {
 
 	$('.delete-project').click(function(event){
 		//$('#userManageModal').modal('show');
-		
 		$.ajax({
 			type: 'DELETE',
 			url: '/project/' + $('#table-'+event.target.id+' .id').text(),
-		});
+		}).done(function(data){
+				$.ajax({
+					type: 'DELETE',
+					url: '/userstoproject/'+ $('#table-'+event.target.id+' .id').text(),
+				})
+				location.reload();
+			});;
 		$('#table-'+event.target.id).remove();
 	});
 
@@ -39,7 +44,12 @@ $(document).ready(function() {
 				type: 'POST',
 				url: '/project',
 				data: newProject
-			}).done(function(){
+			}).done(function(data){
+				$.ajax({
+					type: 'POST',
+					url: '/userstoproject',
+					data: {projectId: data._id}
+				})
 				location.reload();
 			});
 		} else {

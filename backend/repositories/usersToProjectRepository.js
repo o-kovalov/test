@@ -9,17 +9,30 @@ function UsersToProjectRepository(){
 UsersToProjectRepository.prototype = new Repository();
 
 
-UsersToProjectRepository.prototype.addUsersToProject = function(body, callback) {
-	console.log('body', body);
-	var model = this.createModel();
-/*	var newitem = new model({
-		lastName: body.lastName,
-		firstName: body.firstName
-	});
-	newitem.save(callback);
-*/
-	var newitem = new model(body);
-	newitem.save(callback);
+UsersToProjectRepository.prototype.getAll = function (callback) {
+	var model = this.model;
+	var query = model.find({}).populate('projectId').populate('userId');
+	query.exec(callback);
 };
 
+UsersToProjectRepository.prototype.deleteUser = function(id1, id2, callback) {
+	var model = this.model;
+	model.findOne({_id: id1}, function(err, res){				 
+		res.userId.remove(id2);
+		res.save(callback);	 
+	});
+};
+
+UsersToProjectRepository.prototype.deleteByProject = function(id, callback){
+	var model = this.createModel();
+	var query = model.remove({projectId: id});
+	console.log('delete query', query);
+	query.exec(callback);
+};
+
+UsersToProjectRepository.prototype.addUser= function(id1, id2, callback) {
+	var model = this.model;
+	var query = model.findOneAndUpdate({_id: id1},{$addToSet: {userId :id2}});
+	query.exec(callback);
+};
 module.exports = new UsersToProjectRepository();

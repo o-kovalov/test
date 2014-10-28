@@ -16,7 +16,7 @@ function isValid(inputType, data){
 			return data;
 		}
 	} else if (inputType === 'number'){
-		if ((data.search(/^[0-9]+$/) != -1) && (parseInt(data) < 101)){
+		if ((data.search(/^[0-9]+$/) != -1) && (parseInt(data) < 100)){
 			return data;
 		} else {
 			alert ('Incorrect numeric!');
