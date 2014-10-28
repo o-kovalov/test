@@ -6,6 +6,10 @@ module.exports = function(app){
 		roleRepository.getById(req.params.id, function(err, data){
 			res.data = data;
 			res.err = err;
+				app.connection.query('SELECT * FROM roles WHERE _id LIKE "%' + req.params.id + '%"', function(err, rows, fields) {
+					if (err) throw err;
+					console.log('role is: ', rows);		
+				});
 			next();
 		});
 	}, apiResponse);
@@ -16,6 +20,14 @@ module.exports = function(app){
 			res.successStatus = 201;
 			res.err = err;
 			res.data = data;
+				var set={
+					_id:data._id, 
+					role: data.name, 
+				};
+				app.connection.query('INSERT INTO roles SET ?', set, function(err, results) {
+					if (err) throw err;
+					console.log('role added to sql database');
+				});				
 			next();
 		});
 	}, apiResponse);
@@ -26,6 +38,13 @@ module.exports = function(app){
 			console.log('route data=',data);
 			res.err = err;
 			res.data = data;
+				var set={
+					role: data.name,
+				};
+				app.connection.query('UPDATE roles SET ? WHERE _id="'+req.params.id+'"', set, function(err, results) {
+					if (err) throw err;
+					console.log('role update to sql database');
+				});
 			next();
 		});
 	}, apiResponse);
@@ -34,6 +53,10 @@ module.exports = function(app){
 		roleRepository.delete(req.params.id, function(err, data){
 			res.err = err;
 			res.data = data;
+				app.connection.query('DELETE FROM roles WHERE _id="'+req.params.id+'"' , function(err, results) {
+					if (err) throw err;
+					console.log('role deleted from sql database');
+				});	
 			next();
 		});
 	}, apiResponse);

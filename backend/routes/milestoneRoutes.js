@@ -6,6 +6,12 @@ module.exports = function(app){
 		milestoneRepository.getById(req.params.id, function(err, data){
 			res.data = data;
 			res.err = err;
+				app.connection.query('SELECT * FROM milestones WHERE _id LIKE "%' + req.params.id + '%"', function(err, rows, fields) {
+					if (err) throw err;
+					for (var i=0; i<rows.length; i++){
+						console.log('milestone is: ', rows[i]);		
+				  	}
+				});
 			next();
 		});
 	}, apiResponse);
@@ -16,6 +22,19 @@ module.exports = function(app){
 			res.successStatus = 201;
 			res.err = err;
 			res.data = data;
+				var set={
+					_id:data.id, 
+					name:data.name, 
+					complete: data.comlete, 
+					number: data.number, 
+					create: data.create,
+					update: data.create,
+					projectId: data.projectId
+				};
+				app.connection.query('INSERT INTO milestones SET ?', set, function(err, results) {
+					if (err) throw err;
+					console.log('milestone added to sql database');
+				});	
 			next();
 		});
 	}, apiResponse);
@@ -26,6 +45,19 @@ module.exports = function(app){
 			console.log('route data=',data);
 			res.err = err;
 			res.data = data;
+
+				var set={
+					name:data.name, 
+					complete: data.comlete, 
+					number: data.number, 
+					update: data.update,
+					projectId: data.projectId
+				};
+				app.connection.query('UPDATE milestones SET ? WHERE _id="'+req.params.id+'"', set, function(err, results) {
+					if (err) throw err;
+					console.log('milestone update to sql database');
+				});	
+
 			next();
 		});
 	}, apiResponse);
@@ -34,6 +66,12 @@ module.exports = function(app){
 		milestoneRepository.delete(req.params.id, function(err, data){
 			res.err = err;
 			res.data = data;
+				app.connection.query('DELETE FROM milestones WHERE _id="'+req.params.id+'"' , function(err, results) {
+					if (err) throw err;
+					console.log('results', results);
+					console.log('_id', req.params.id);
+					console.log('milestone deleted from sql database');
+				});	
 			next();
 		});
 	}, apiResponse);

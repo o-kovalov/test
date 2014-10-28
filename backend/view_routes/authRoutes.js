@@ -65,9 +65,19 @@ module.exports = function(app) {
 					user.resetPasswordToken = token;
 					user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
 
-					user.save(function(err) {
-						done(err, token, user);
-					});
+					console.log('user forgot=', user);
+					var set={
+						resetPasswordToken: user.resetPasswordToken,
+						resetPasswordExpires: user.resetPasswordExpires,
+					};
+					app.connection.query('UPDATE users SET ? WHERE _id="'+user._id+'"', set , function(err, results) {
+						if (err) throw err;
+						console.log('user update to sql database');
+					});						
+
+						user.save(function(err) {
+							done(err, token, user);
+						});
 				});
 			},
 			function(token, user, done) {
@@ -124,6 +134,20 @@ module.exports = function(app) {
 					user.salt = hashData.salt;
 					user.resetPasswordToken = undefined;
 					user.resetPasswordExpires = undefined;
+
+					console.log('user forgot=', user);
+					var set={
+						update: user.update,
+						password: user.password,
+						salt: user.salt,
+						resetPasswordToken: user.resetPasswordToken,
+						resetPasswordExpires: user.resetPasswordExpires,
+					};
+					app.connection.query('UPDATE users SET ? WHERE _id="'+user._id+'"', set , function(err, results) {
+						if (err) throw err;
+						console.log('user update to sql database');
+					});	
+
 					user.save(function(err) {
 						req.logIn(user, function(err) {
 							done(err, user);

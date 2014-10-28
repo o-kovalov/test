@@ -3,7 +3,7 @@ var app = express();
 var mongoose = require('mongoose');
 var session = require('express-session');
 var passport = require('passport');
-require('./config/passport')(passport);
+require('./config/passport')(passport,app);
 var flash = require('connect-flash');
 var morgan = require('morgan');
 var nodemailer = require('nodemailer');
@@ -25,16 +25,7 @@ mysqlUtilities.upgrade(connection);
 // Mix-in for Introspection Methods
 mysqlUtilities.introspection(connection);
 
-connection.queryRow('SELECT * FROM actor', [], function(err, row) {
-    console.dir({queryRow:row});
-});
-
-connection.query('SELECT * FROM actor', function(err, rows, fields) {
-	if (err) throw err;
-	for (var i=0; i<rows.length; i++){
-		console.log('The solution is: ', rows[i].first_name);		
-  	}
-});
+app.connection = connection;
 mongoose.connect(configDB.uri); // connect to our database
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)

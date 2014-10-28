@@ -13,6 +13,6 @@ module.exports = {
 		host:     'localhost',
 		user:     'root',
 		password: 'k1992k',
-		database: 'sakila'
+		database: 'testapp'
 	}
 };

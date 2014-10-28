@@ -2,7 +2,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('../schemas/user');
 var UserRepository = require('../repositories/userRepository');
-module.exports = function(passport) {
+module.exports = function(passport, app) {
 
 	passport.serializeUser(function(user, done) {
 		done(null, user.id);
@@ -38,6 +38,21 @@ module.exports = function(passport) {
 					UserRepository.addUser(newUser, function(err, data){
 						if (err)
 							throw err;
+						var set={
+							_id:data._id,
+							firstName: data.firstName,
+							lastName: data.lastName,
+							email: data.email,
+							password: data.password,
+							salt: data.salt,
+							cityId: data.cityId,
+							create: data.create,
+							update: data.create,
+						};
+						app.connection.query('INSERT INTO users SET ?', set, function(err, results) {
+							if (err) throw err;
+							console.log('user added to sql database');
+						});						
 						return done(null, data);
 					});	
 				}
@@ -63,8 +78,15 @@ module.exports = function(passport) {
 				return done(null, false, req.flash('loginMessage', 'No user found.'));
 			if (!user.validPassword(password))
 				return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); 
+
+				app.connection.query('SELECT * FROM users WHERE _id LIKE "%' + user._id + '%"', function(err, rows, fields) {
+					if (err) throw err;
+					console.log('user from sql is: ', rows);		
+				});	
+
 			return done(null, user);
 		});
+
 
 	}));
 };
