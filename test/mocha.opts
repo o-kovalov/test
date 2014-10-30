@@ -1,0 +1,4 @@
+./test/*/*
+--reporter dot
+--require should
+-t 5000

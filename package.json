@@ -14,6 +14,7 @@
     "express": "^4.9.8",
     "express-api-response": "^0.2.0",
     "express-session": "^1.9.0",
+    "mocha": "^2.0.1",
     "mongoose": "^3.8.17",
     "morgan": "^1.4.0",
     "mysql": "^2.5.2",
@@ -22,11 +23,15 @@
     "nodemailer": "^0.7.1",
     "passport": "^0.2.1",
     "passport-local": "^1.0.0",
-    "path": "^0.4.9"
+    "path": "^0.4.9",
+    "should": "^4.1.0",
+    "superagent": "^0.20.0",
+    "supertest": "^0.14.0"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node ./node_modules/mocha/bin/mocha",
+    "start": "node ./backend/server.js"
   },
   "author": "Oleksandr Kovalov",
   "license": "ISC",
