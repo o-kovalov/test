@@ -18,7 +18,7 @@
 				<td class="id" style="display:none"><%= notelist[i]._id %></td>
 				<td class="note"><%= notelist[i].note %></td>
 				<td>
-					<select class="userId" size="1" disabled>
+					<select class="form-control userId" size="1" disabled>
 						<% for(var y=0; y<users.length; y++) { %>
 							<%var a = JSON.stringify(users[y]._id) %>
 							<%var b = JSON.stringify(notelist[i].userId._id) %>					
@@ -31,7 +31,7 @@
 					</select>	
 				</td>
 				<td>
-					<select class="milestoneId" size="1" disabled>
+					<select class="form-control milestoneId" size="1" disabled>
 						<% for(var y=0; y<milestones.length; y++) { %>
 							<%var a = JSON.stringify(milestones[y]._id) %>
 							<%var b = JSON.stringify(notelist[i].milestoneId._id) %>					

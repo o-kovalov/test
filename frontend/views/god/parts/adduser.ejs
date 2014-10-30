@@ -15,19 +15,19 @@
 		<tbody>
 			<tr id="add-row">
 				<td></td>
-				<td><input id="add-firstName" type="text" placeholder="First Name"></input></td>
-				<td><input id="add-lastName" type="text" placeholder="Last Name"></input></td>
-				<td><input id="add-email" type="email" placeholder="example@mail.com"></input></td>
-				<td><input id="add-password" type="password" placeholder="password"></input></td>
+				<td><input class="form-control" id="add-firstName" type="text" placeholder="First Name"></input></td>
+				<td><input class="form-control" id="add-lastName" type="text" placeholder="Last Name"></input></td>
+				<td><input class="form-control" id="add-email" type="email" placeholder="example@mail.com"></input></td>
+				<td><input class="form-control" id="add-password" type="password" placeholder="password"></input></td>
 				<td>
-					<select id="add-cityId" size="1">
+					<select class="form-control" id="add-cityId" size="1">
 						<% for(var i=0; i<cities.length; i++) { %>	
 							<option value=<%= cities[i]._id %>><%= cities[i].name %></option>
 						<% } %>
 					</select>	
 				</td>
 				<td>
-					<select id="add-roleId" size="1">
+					<select class="form-control" id="add-roleId" size="1">
 						<% for(var i=0; i<roles.length; i++) { %>	
 							<option value=<%= roles[i]._id %>><%= roles[i].name %></option>
 						<% } %>

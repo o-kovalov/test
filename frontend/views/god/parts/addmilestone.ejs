@@ -5,7 +5,7 @@
 				<th> </th>
 				<th>Name</th>
 				<th>Number</th>
-				<th>Comlete</th>
+				<th>Comlete (%)</th>
 				<th>Project</th>
 				<th>Options</th>				
 			</tr>
@@ -13,11 +13,11 @@
 		<tbody>
 			<tr id="add-row" >
 				<td></td>
-				<td><input type="text" placeholder="Name" id="add-name"></input></td>
-				<td><input type="number" placeholder="0" id="add-number"></input></td>
-				<td><input type="number" placeholder="0" id="add-complete"></input></td>
+				<td><input class="form-control" type="text" placeholder="Name" id="add-name"></input></td>
+				<td><input class="form-control" type="number" placeholder="0..99" id="add-number"></input></td>
+				<td><input class="form-control" type="number" placeholder="0..99" id="add-complete"></input></td>
 				<td>
-					<select id="add-project" size="1">
+					<select class="form-control" id="add-project" size="1">
 						<% for(var i=0; i<projects.length; i++) { %>	
 							<option value=<%= projects[i]._id %>><%= projects[i].name %></option>
 						<% } %>

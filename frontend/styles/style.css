@@ -5,3 +5,8 @@ i, a {
 	outline: 1px dotted gray;
 	cursor: pointer;
 }
+.addUserToList select{
+	width: 75%;
+	margin-right: 5px;
+	float: left;
+}

@@ -22,7 +22,7 @@
 				<td class="lastName"><%= userlist[i].lastName %></td>
 				<td class="email"><%= userlist[i].email %></td>
 				<td>
-					<select class="cityId" size="1" disabled>
+					<select class="form-control cityId" size="1" disabled>
 						<% for(var y=0; y<cities.length; y++) { %>
 							<%var a = JSON.stringify(cities[y]._id) %>
 							<%var b = JSON.stringify(userlist[i].cityId._id) %>					
@@ -35,7 +35,7 @@
 					</select>	
 				</td>
 				<td>
-					<select class="roleId" size="1" disabled>
+					<select class="form-control roleId" size="1" disabled>
 						<% for(var y=0; y<roles.length; y++) { %>
 							<%var a = JSON.stringify(roles[y]._id) %>
 							<%var b = JSON.stringify(userlist[i].roleId._id) %>					
