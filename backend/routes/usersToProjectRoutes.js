@@ -51,12 +51,13 @@ module.exports = function(app){
 		});
 	}, apiResponse);
 
-	app.delete('/usersToProject/:id', function(req, res, next){
+	app.delete('/usersToProject/:id/del', function(req, res, next){
 		usersToProjectRepository.deleteByProject(req.params.id, function(err, data){
 			res.err = err;
 			res.data = data;
-				app.connection.query('DELETE FROM userstoprojects WHERE _id="'+req.params.id+'"' , function(err, results) {
+				app.connection.query('DELETE FROM userstoprojects WHERE projectId="'+req.params.id+'"' , function(err, results) {
 					if (err) throw err;
+					console.log('utp results',results)
 					console.log('usersToProject deleted from sql database');
 				});	
 			next();
