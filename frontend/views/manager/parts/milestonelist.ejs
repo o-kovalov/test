@@ -21,7 +21,7 @@
 				<td class="number" contenteditable='true'><%= milestonelist[i].number %></td>
 				<td class="complete" contenteditable='true'><%= milestonelist[i].complete %></td>
 				<td>
-					<select class="projectId" size="1">
+					<select class="form-control projectId" size="1">
 						<% for(var y=0; y<projects.length; y++) { %>
 							<%var a = JSON.stringify(projects[y]._id) %>
 							<%var b = JSON.stringify(milestonelist[i].projectId._id) %>					

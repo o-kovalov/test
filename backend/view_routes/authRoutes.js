@@ -18,7 +18,6 @@ module.exports = function(app) {
 	});
 	app.get('/signup', function(req, res) {
 		CityRepository.getAll(function(err, cities){
-			console.log('cities', cities);
 			res.render('../frontend/views/signup.ejs', { message: req.flash('signupMessage'), error: req.flash('signupError'), cities: cities });
 		});
 	});
@@ -86,8 +85,6 @@ module.exports = function(app) {
 
 					user.resetPasswordToken = token;
 					user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
-
-					console.log('user forgot=', user);
 					var set={
 						resetPasswordToken: user.resetPasswordToken,
 						resetPasswordExpires: user.resetPasswordExpires,
@@ -106,8 +103,8 @@ module.exports = function(app) {
 				var smtpTransport = nodemailer.createTransport('SMTP', {
 					service: 'gmail',
 					auth: {
-						user: 'snake.dn@gmail.com',
-						pass: 'pn208d00159'
+						user: 'testapp367@gmail.com',
+						pass: '367testapp'
 					}
 				});
 				var mailOptions = {
@@ -124,7 +121,6 @@ module.exports = function(app) {
 				});
 			}
 		], function(err) {
-			console.log('email err=',err);
 			if (err) return next(err);
 			res.redirect('/forgot');
 		});
@@ -156,8 +152,6 @@ module.exports = function(app) {
 					user.salt = hashData.salt;
 					user.resetPasswordToken = undefined;
 					user.resetPasswordExpires = undefined;
-
-					console.log('user forgot=', user);
 					var set={
 						update: user.update,
 						password: user.password,
@@ -181,8 +175,8 @@ module.exports = function(app) {
 				var smtpTransport = nodemailer.createTransport('SMTP', {
 					service: 'Gmail',
 					auth: {
-						user: 'snake.dn@gmail.com',
-						pass: 'pn208d00159'
+						user: 'testapp367@gmail.com',
+						pass: '367testapp'
 					}
 				});
 				var mailOptions = {

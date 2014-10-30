@@ -9,7 +9,7 @@ module.exports = function(app){
 			res.err = err;
 				app.connection.query('SELECT * FROM cities WHERE _id LIKE "%' + req.params.id + '%"', function(err, rows, fields) {
 					if (err) throw err;
-					console.log('city is: ', rows);		
+					console.log('city from sql is: ', rows);		
 				});
 			next();
 		});
@@ -32,8 +32,6 @@ module.exports = function(app){
 
 	app.put('/city/:id', function(req, res, next){
 		cityRepository.updateByObjectId(req.params.id, req.body, function(err, data){
-			console.log('route err=',err);
-			console.log('route data=',data);
 			res.err = err;
 			res.data = data;
 
@@ -54,8 +52,6 @@ module.exports = function(app){
 				
 				app.connection.query('DELETE FROM cities WHERE _id="'+req.params.id+'"' , function(err, results) {
 					if (err) throw err;
-					console.log('results', results);
-					console.log('_id', req.params.id);
 					console.log('city deleted from sql database');
 				});	
 

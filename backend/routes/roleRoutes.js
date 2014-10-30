@@ -8,14 +8,13 @@ module.exports = function(app){
 			res.err = err;
 				app.connection.query('SELECT * FROM roles WHERE _id LIKE "%' + req.params.id + '%"', function(err, rows, fields) {
 					if (err) throw err;
-					console.log('role is: ', rows);		
+					console.log('role from sql is: ', rows);		
 				});
 			next();
 		});
 	}, apiResponse);
 
 	app.post('/role', function(req, res, next){
-		console.log('REq', req.body);
 		roleRepository.add(req.body, function(err, data){
 			res.successStatus = 201;
 			res.err = err;
@@ -34,8 +33,6 @@ module.exports = function(app){
 
 	app.put('/role/:id', function(req, res, next){
 		roleRepository.updateByObjectId(req.params.id, req.body, function(err, data){
-			console.log('route err=',err);
-			console.log('route data=',data);
 			res.err = err;
 			res.data = data;
 				var set={

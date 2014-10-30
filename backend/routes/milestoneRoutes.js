@@ -8,16 +8,13 @@ module.exports = function(app){
 			res.err = err;
 				app.connection.query('SELECT * FROM milestones WHERE _id LIKE "%' + req.params.id + '%"', function(err, rows, fields) {
 					if (err) throw err;
-					for (var i=0; i<rows.length; i++){
-						console.log('milestone is: ', rows[i]);		
-				  	}
+					console.log('milestone from sql is: ', rows);		
 				});
 			next();
 		});
 	}, apiResponse);
 
 	app.post('/milestone', function(req, res, next){
-		console.log('REq', req.body);
 		milestoneRepository.add(req.body, function(err, data){
 			res.successStatus = 201;
 			res.err = err;
@@ -25,7 +22,7 @@ module.exports = function(app){
 				var set={
 					_id:data.id, 
 					name:data.name, 
-					complete: data.comlete, 
+					complete: data.complete, 
 					number: data.number, 
 					create: data.create,
 					update: data.create,
@@ -41,14 +38,12 @@ module.exports = function(app){
 
 	app.put('/milestone/:id', function(req, res, next){
 		milestoneRepository.updateByObjectId(req.params.id, req.body, function(err, data){
-			console.log('route err=',err);
-			console.log('route data=',data);
 			res.err = err;
 			res.data = data;
 
 				var set={
 					name:data.name, 
-					complete: data.comlete, 
+					complete: data.complete, 
 					number: data.number, 
 					update: data.update,
 					projectId: data.projectId
@@ -68,8 +63,6 @@ module.exports = function(app){
 			res.data = data;
 				app.connection.query('DELETE FROM milestones WHERE _id="'+req.params.id+'"' , function(err, results) {
 					if (err) throw err;
-					console.log('results', results);
-					console.log('_id', req.params.id);
 					console.log('milestone deleted from sql database');
 				});	
 			next();

@@ -4,7 +4,8 @@
 			<tr>
 				<th>#</th>
 				<th>Project</th>
-				<th>Userlist</th>			
+				<th>Userlist</th>
+				<th>Add user to list</th>		
 			</tr>
 		</thead>
 		<tbody>
@@ -23,7 +24,9 @@
 								</li>
 							<% } %>
 						</ul>
-						<select class="add-user-row-<%= i+1 %>" size="1">
+					</td>
+					<td class="addUserToList">
+						<select class="form-control add-user-row-<%= i+1 %>" size="1">
 							<% for(var z=0; z<users.length; z++) { %>				
 								<option value=<%= users[z]._id %> ><%= users[z].lastName +" "+ users[z].firstName %></option>
 							<% } %>

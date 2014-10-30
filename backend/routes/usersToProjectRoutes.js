@@ -15,7 +15,6 @@ module.exports = function(app){
 	}, apiResponse);
 
 	app.post('/usersToProject', function(req, res, next){
-		console.log('REq', req.body);
 		usersToProjectRepository.add(req.body, function(err, data){
 			res.successStatus = 201;
 			res.err = err;
@@ -35,8 +34,6 @@ module.exports = function(app){
 
 	app.put('/usersToProject/:id', function(req, res, next){
 		usersToProjectRepository.updateByObjectId(req.params.id, req.body, function(err, data){
-			console.log('route err=',err);
-			console.log('route data=',data);
 			res.err = err;
 			res.data = data;
 				var set={
@@ -57,7 +54,6 @@ module.exports = function(app){
 			res.data = data;
 				app.connection.query('DELETE FROM userstoprojects WHERE projectId="'+req.params.id+'"' , function(err, results) {
 					if (err) throw err;
-					console.log('utp results',results)
 					console.log('usersToProject deleted from sql database');
 				});	
 			next();
@@ -66,7 +62,6 @@ module.exports = function(app){
 
 	app.put('/usersToProject/:id/:iduser', function(req, res, next){
 		usersToProjectRepository.addUser(req.params.id, req.params.iduser, function(err, data){
-			console.log('put=',err,data);
 			res.err = err;
 			res.data = data;
 				var set={
@@ -85,7 +80,6 @@ module.exports = function(app){
 		usersToProjectRepository.deleteUser(req.params.id, req.params.iduser, function(err, data){
 			res.err = err;
 			res.data = data;
-				console.log('utp on del=', data);
 				var set={
 					usersId: data.userId.toString() 
 				};

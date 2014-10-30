@@ -24,7 +24,6 @@ $(document).ready(function() {
 
 	$('.delete-user').click(function(event){
 		//$('#userManageModal').modal('show');
-		console.log('id', $('#table-'+event.target.id+' .id').text());
 		$.ajax({
 			type: 'DELETE',
 			url: '/user/' + $('#table-'+event.target.id+' .id').text(),

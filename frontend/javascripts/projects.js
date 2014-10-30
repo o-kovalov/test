@@ -22,7 +22,6 @@ $(document).ready(function() {
 	$('.delete-project').click(function(event){
 		//$('#userManageModal').modal('show');
 		var a = $('#table-'+event.target.id+' .id').text()
-		console.log(a);
 		$.ajax({
 			type: 'DELETE',
 			url: '/project/' + a,

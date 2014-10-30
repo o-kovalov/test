@@ -8,21 +8,12 @@ module.exports = function(app){
 			res.err = err;
 				app.connection.query('SELECT * FROM projects WHERE _id LIKE "%' + req.params.id + '%"', function(err, rows, fields) {
 					if (err) throw err;
-					console.log('project is: ', rows);		
+					console.log('project from sql is: ', rows);		
 				});
 			next();
 		});
 	}, apiResponse);
 
-	/*app.get('/project', function(req, res, next){
-		projectRepository.getAll(function(err, data){
-			console.log('project data err', data, err);
-			res.data = data;
-			res.err = err;
-			next();
-		});
-	}, apiResponse);
-*/
 	app.post('/project', function(req, res, next){
 		projectRepository.add(req.body, function(err, data){
 			res.successStatus = 201;
@@ -45,8 +36,6 @@ module.exports = function(app){
 
 	app.put('/project/:id', function(req, res, next){
 		projectRepository.updateByObjectId(req.params.id, req.body, function(err, data){
-			console.log('proj err=',err);
-			console.log('proj data=',data);
 			res.err = err;
 			res.data = data;
 				var set={
@@ -63,16 +52,11 @@ module.exports = function(app){
 	}, apiResponse);
 
 	app.delete('/project/:id', function(req, res, next){
-		console.log('delete project1');
 		projectRepository.delete(req.params.id, function(err, data){
-			console.log('delete project2');
 			res.err = err;
 			res.data = data;
-			console.log(res);
 				app.connection.query('DELETE FROM projects WHERE _id="'+req.params.id+'"' , function(err, results) {
 					if (err) throw err;
-					console.log('results', results);
-					console.log('_id', req.params.id);
 					console.log('project deleted from sql database');
 				});	
 			next();

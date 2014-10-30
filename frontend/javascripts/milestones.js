@@ -47,7 +47,6 @@ $(document).ready(function() {
 			});
 		} else {
 			$('#add-row').addClass('danger');
-			alert($('#add-ptoject').val());
 		}
 	});	
 });

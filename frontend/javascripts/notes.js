@@ -21,8 +21,6 @@ $(document).ready(function() {
 	});
 
 	$('.delete-note').click(function(event){
-		//$('#userManageModal').modal('show');
-		
 		$.ajax({
 			type: 'DELETE',
 			url: '/note/' + $('#table-'+event.target.id+' .id').text(),

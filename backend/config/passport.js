@@ -22,16 +22,13 @@ module.exports = function(passport, app) {
 	},
 	function(req, email, password, done) {
 		process.nextTick(function() {
-			console.log('signup email and pass', email, password);
 			User.findOne({email:email }, function(err, user) {
-				console.log('findone signup', err, user);
 				if (err)
 					return done(err);
 				if (user) {
 					return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
 				} else {
 					RoleRepository.getRoleId('Client', function(err, role) {
-						console.log('role', role);
 						var newUser = new User();
 						newUser.email = email;
 						newUser.password = password;
@@ -42,6 +39,7 @@ module.exports = function(passport, app) {
 						UserRepository.addUser(newUser, function(err, data){
 							if (err)
 								throw err;
+							console.log('user added to mongo database');
 							var set={
 								_id:data._id,
 								firstName: data.firstName,
@@ -74,9 +72,7 @@ module.exports = function(passport, app) {
 		passReqToCallback : true
 	},
 	function(req, email, password, done) {
-		console.log('email and pass', email, password);
 		User.findOne({email:email}, function(err, user) {
-			console.log('findone login', err, user);
 			if (err)
 				return done(err);
 			// if no user is found, return the message
@@ -84,7 +80,7 @@ module.exports = function(passport, app) {
 				return done(null, false, req.flash('loginMessage', 'No user found.'));
 			if (!user.validPassword(password))
 				return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); 
-
+			
 				app.connection.query('SELECT * FROM users WHERE _id LIKE "%' + user._id + '%"', function(err, rows, fields) {
 					if (err) throw err;
 					console.log('user from sql is: ', rows);		

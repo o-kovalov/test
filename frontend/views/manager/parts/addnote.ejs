@@ -12,16 +12,16 @@
 		<tbody>
 			<tr id="add-row" >
 				<td></td>
-				<td><input id="add-note" type="text" placeholder="Name"></input></td>
+				<td><input class="form-control" id="add-note" type="text" placeholder="Name"></input></td>
 				<td>
-					<select id="add-userId" size="1">
+					<select class="form-control" id="add-userId" size="1">
 						<% for(var i=0; i<users.length; i++) { %>	
 							<option value=<%= users[i]._id %>><%= users[i].lastName +" "+ users[i].firstName %></option>
 						<% } %>
 					</select>	
 				</td>
 				<td>
-					<select id="add-milestoneId" size="1">
+					<select class="form-control" id="add-milestoneId" size="1">
 						<% for(var i=0; i<milestones.length; i++) { %>	
 							<option value=<%= milestones[i]._id %>><%= milestones[i].name %></option>
 						<% } %>

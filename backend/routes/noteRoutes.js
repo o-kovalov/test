@@ -8,14 +8,13 @@ module.exports = function(app){
 			res.err = err;
 				app.connection.query('SELECT * FROM notes WHERE _id LIKE "%' + req.params.id + '%"', function(err, rows, fields) {
 					if (err) throw err;
-					console.log('note is: ', rows);
+					console.log('note from sql is: ', rows);
 				});
 			next();
 		});
 	}, apiResponse);
 
 	app.post('/note', function(req, res, next){
-		console.log('REq', req.body);
 		noteRepository.add(req.body, function(err, data){
 			res.successStatus = 201;
 			res.err = err;
@@ -38,8 +37,6 @@ module.exports = function(app){
 
 	app.put('/note/:id', function(req, res, next){
 		noteRepository.updateByObjectId(req.params.id, req.body, function(err, data){
-			console.log('route err=',err);
-			console.log('route data=',data);
 			res.err = err;
 			res.data = data;
 				var set={
@@ -62,8 +59,6 @@ module.exports = function(app){
 			res.data = data;
 				app.connection.query('DELETE FROM notes WHERE _id="'+req.params.id+'"' , function(err, results) {
 					if (err) throw err;
-					console.log('results', results);
-					console.log('_id', req.params.id);
 					console.log('note deleted from sql database');
 				});	
 			next();

@@ -8,14 +8,13 @@ module.exports = function(app){
 			res.err = err;
 				app.connection.query('SELECT * FROM users WHERE _id LIKE "%' + req.params.id + '%"', function(err, rows, fields) {
 					if (err) throw err;
-					console.log('user is: ', rows);		
+					console.log('user from sql is: ', rows);		
 				});			
 			next();
 		});
 	}, apiResponse);
 
 	app.post('/user', function(req, res, next){
-		console.log('REq', req.body);
 		userRepository.addUser(req.body, function(err, data){
 			res.successStatus = 201;
 			res.err = err;
@@ -42,8 +41,6 @@ module.exports = function(app){
 
 	app.put('/user/:id', function(req, res, next){
 		userRepository.updateByObjectId(req.params.id, req.body, function(err, data){
-			console.log('route err=',err);
-			console.log('route data=',data);
 			res.err = err;
 			res.data = data;
 				var set={
@@ -66,13 +63,10 @@ module.exports = function(app){
 
 	app.delete('/user/:id', function(req, res, next){
 		userRepository.delete(req.params.id, function(err, data){
-			console.log('delete err,data', err, data);
 			res.err = err;
 			res.data = data;
 				app.connection.query('DELETE FROM users WHERE _id="'+req.params.id+'"' , function(err, results) {
 					if (err) throw err;
-					console.log('results', results);
-					console.log('_id', req.params.id);
 					console.log('user deleted from sql database');
 				});	
 			next();

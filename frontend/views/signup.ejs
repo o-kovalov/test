@@ -40,7 +40,7 @@
 		</div>
 		<div class="form-group">
 			<label>City</label>
-			<select name="cityId" size="1">
+			<select class="form-control" name="cityId" size="1">
 			<% for(var i=0; i<cities.length; i++) { %>	
 				<option value=<%= cities[i]._id %>><%= cities[i].name %></option>
 			<% } %>
