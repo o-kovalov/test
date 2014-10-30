@@ -1,4 +1,5 @@
 var userRepository = require('../repositories/userRepository');
+var noteRepository = require('../repositories/noteRepository');
 var apiResponse = require('express-api-response');
 
 module.exports = function(app){
@@ -62,14 +63,16 @@ module.exports = function(app){
 	}, apiResponse);
 
 	app.delete('/user/:id', function(req, res, next){
-		userRepository.delete(req.params.id, function(err, data){
-			res.err = err;
-			res.data = data;
-				app.connection.query('DELETE FROM users WHERE _id="'+req.params.id+'"' , function(err, results) {
-					if (err) throw err;
-					console.log('user deleted from sql database');
-				});	
-			next();
+		noteRepository.deleteUser(req.params.id, function(err, data){
+			userRepository.delete(req.params.id, function(err, data){
+				res.err = err;
+				res.data = data;
+					app.connection.query('DELETE FROM users WHERE _id="'+req.params.id+'"' , function(err, results) {
+						if (err) throw err;
+						console.log('user deleted from sql database');
+					});	
+				next();
+			});
 		});
 	}, apiResponse);
 };

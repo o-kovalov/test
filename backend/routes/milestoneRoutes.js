@@ -1,4 +1,5 @@
 var milestoneRepository = require('../repositories/milestoneRepository');
+var noteRepository = require('../repositories/noteRepository');
 var apiResponse = require('express-api-response');
 
 module.exports = function(app){
@@ -58,14 +59,20 @@ module.exports = function(app){
 	}, apiResponse);
 
 	app.delete('/milestone/:id', function(req, res, next){
-		milestoneRepository.delete(req.params.id, function(err, data){
-			res.err = err;
-			res.data = data;
-				app.connection.query('DELETE FROM milestones WHERE _id="'+req.params.id+'"' , function(err, results) {
-					if (err) throw err;
-					console.log('milestone deleted from sql database');
-				});	
-			next();
+		noteRepository.deleteMilestone(req.params.id, function(err, data){
+			app.connection.query('DELETE FROM notes WHERE _id="'+req.params.id+'"' , function(err, results) {
+				if (err) throw err;
+				console.log('note deleted from sql database');
+			});				
+			milestoneRepository.delete(req.params.id, function(err, data){
+				res.err = err;
+				res.data = data;
+					app.connection.query('DELETE FROM milestones WHERE _id="'+req.params.id+'"' , function(err, results) {
+						if (err) throw err;
+						console.log('milestone deleted from sql database');
+					});	
+				next();
+			});
 		});
 	}, apiResponse);
 };

@@ -14,4 +14,20 @@ NoteRepository.prototype.getAll = function (callback) {
 	query.exec(callback);
 };
 
+NoteRepository.prototype.deleteMilestone = function(id1, callback) {
+	var model = this.model;
+	var query = model.remove({milestoneId: {$in:id1}}, function(err, res){				 
+ 		console.log(res,err);
+	});
+	query.exec(callback);
+};
+
+NoteRepository.prototype.deleteUser = function(id, callback) {
+	var model = this.model; 
+	var query = model.remove({userId: id}, function(err, res){
+		console.log(res,err);				 
+	});
+	query.exec(callback);
+};
+
 module.exports = new NoteRepository();
