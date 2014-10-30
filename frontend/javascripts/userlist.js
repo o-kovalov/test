@@ -6,6 +6,7 @@ $(document).ready(function() {
 			lastName: isValid('text', $('#table-'+event.target.id+' .lastName').text()),
 			email: isValid('email', $('#table-'+event.target.id+' .email').text()),
 			cityId: $('#table-'+event.target.id+' .cityId').val(),
+			roleId: $('#table-'+event.target.id+' .roleId').val(),
 			update: Date.now()
 		};
 		if (canSend(opts)) {
@@ -40,6 +41,7 @@ $(document).ready(function() {
 		newUser.lastName = isValid('text', $('#add-lastName').val());
 		newUser.firstName = isValid('text', $('#add-firstName').val());
 		newUser.cityId = $('#add-cityId').val();
+		newUser.roleId = $('#add-roleId').val();
 		newUser.create = Date.now();
 		if (canSend(newUser)) {		
 			$.ajax({

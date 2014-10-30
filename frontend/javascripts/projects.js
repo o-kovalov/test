@@ -21,15 +21,17 @@ $(document).ready(function() {
 
 	$('.delete-project').click(function(event){
 		//$('#userManageModal').modal('show');
+		var a = $('#table-'+event.target.id+' .id').text()
+		console.log(a);
 		$.ajax({
 			type: 'DELETE',
-			url: '/project/' + $('#table-'+event.target.id+' .id').text(),
+			url: '/project/' + a,
 		}).done(function(data){
 				$.ajax({
 					type: 'DELETE',
-					url: '/userstoproject/'+ $('#table-'+event.target.id+' .id').text(),
+					url: '/userstoproject/'+ a +'/del',
 				})
-				location.reload();
+				//location.reload();
 			});;
 		$('#table-'+event.target.id).remove();
 	});

@@ -8,6 +8,7 @@
 				<th>e-mail</th>
 				<th>Password</th>
 				<th>City</th>
+				<th>Role</th>
 				<th>Options</th>				
 			</tr>
 		</thead>
@@ -22,6 +23,13 @@
 					<select id="add-cityId" size="1">
 						<% for(var i=0; i<cities.length; i++) { %>	
 							<option value=<%= cities[i]._id %>><%= cities[i].name %></option>
+						<% } %>
+					</select>	
+				</td>
+				<td>
+					<select id="add-roleId" size="1">
+						<% for(var i=0; i<roles.length; i++) { %>	
+							<option value=<%= roles[i]._id %>><%= roles[i].name %></option>
 						<% } %>
 					</select>	
 				</td>

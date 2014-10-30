@@ -7,6 +7,7 @@
 				<th>Last Name</th>
 				<th>e-mail</th>
 				<th>City</th>
+				<th>Role</th>
 				<th>Create</th>
 				<th>Update</th>
 				<th>Options</th>				
@@ -17,11 +18,11 @@
 			<tr id="table-row-<%= i+1 %>">
 				<td><%= i+1 %></td>
 				<td class="id" style="display:none"><%= userlist[i]._id %></td>
-				<td class="firstName" contenteditable='true'><%= userlist[i].firstName %></td>
-				<td class="lastName" contenteditable='true'><%= userlist[i].lastName %></td>
-				<td class="email" contenteditable='true'><%= userlist[i].email %></td>
+				<td class="firstName"><%= userlist[i].firstName %></td>
+				<td class="lastName"><%= userlist[i].lastName %></td>
+				<td class="email"><%= userlist[i].email %></td>
 				<td>
-					<select class="cityId" size="1">
+					<select class="cityId" size="1" disabled>
 						<% for(var y=0; y<cities.length; y++) { %>
 							<%var a = JSON.stringify(cities[y]._id) %>
 							<%var b = JSON.stringify(userlist[i].cityId._id) %>					
@@ -33,10 +34,22 @@
 						<% } %>
 					</select>	
 				</td>
+				<td>
+					<select class="roleId" size="1" disabled>
+						<% for(var y=0; y<roles.length; y++) { %>
+							<%var a = JSON.stringify(roles[y]._id) %>
+							<%var b = JSON.stringify(userlist[i].roleId._id) %>					
+							<% if (a === b) { %>
+								<option value=<%= roles[y]._id %> selected><%= roles[y].name %></option>
+							<% } else { %>
+								<option value=<%= roles[y]._id %> ><%= roles[y].name %></option>
+							<% } %>
+						<% } %>
+					</select>	
+				</td>
 				<td class="create"><%= userlist[i].create.toDateString() + " " + userlist[i].create.toLocaleTimeString()%></td>
 				<td class="update"><%= userlist[i].update.toDateString() + " " + userlist[i].update.toLocaleTimeString()%></td>
 				<td>
-					<i class="fa fa-floppy-o save-user" id="row-<%= i+1 %>"></i>
 					<i class="fa fa-times delete-user" id="row-<%= i+1 %>"></i>
 				</td>				
 			</tr>

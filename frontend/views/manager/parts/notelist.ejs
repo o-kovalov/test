@@ -1,0 +1,56 @@
+<div class="well">
+	<table class="table table-striped table-hover table-condensed">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Note</th>
+				<th>User</th>
+				<th>Milestone</th>
+				<th>Create</th>
+				<th>Update</th>
+				<th>Options</th>				
+			</tr>
+		</thead>
+		<tbody>
+			<% for(var i=0; i<notelist.length; i++) { %>
+			<tr id="table-row-<%= i+1 %>">
+				<td><%= i+1 %></td>
+				<td class="id" style="display:none"><%= notelist[i]._id %></td>
+				<td class="note" contenteditable='true'><%= notelist[i].note %></td>
+				<td>
+					<select class="userId" size="1">
+						<% for(var y=0; y<users.length; y++) { %>
+							<%var a = JSON.stringify(users[y]._id) %>
+							<%var b = JSON.stringify(notelist[i].userId._id) %>					
+							<% if (a === b) { %>
+								<option value=<%= users[y]._id %> selected><%= users[y].lastName +" "+ users[y].firstName %></option>
+							<% } else { %>
+								<option value=<%= users[y]._id %> ><%= users[y].lastName +" "+ users[y].firstName %></option>
+							<% } %>
+						<% } %>
+					</select>	
+				</td>
+				<td>
+					<select class="milestoneId" size="1">
+						<% for(var y=0; y<milestones.length; y++) { %>
+							<%var a = JSON.stringify(milestones[y]._id) %>
+							<%var b = JSON.stringify(notelist[i].milestoneId._id) %>					
+							<% if (a === b) { %>
+								<option value=<%= milestones[y]._id %> selected><%= milestones[y].name %></option>
+							<% } else { %>
+								<option value=<%= milestones[y]._id %> ><%= milestones[y].name %></option>
+							<% } %>
+						<% } %>
+					</select>	
+				</td>
+				<td class="create"><%= notelist[i].create.toDateString() + " " + notelist[i].create.toLocaleTimeString()%></td>
+				<td class="update"><%= notelist[i].update.toDateString() + " " + notelist[i].update.toLocaleTimeString()%></td>
+				<td>
+					<i class="fa fa-floppy-o save-note" id="row-<%= i+1 %>"></i>
+					<i class="fa fa-times delete-note" id="row-<%= i+1 %>"></i>
+				</td>				
+			</tr>
+			<% } %>
+		</tbody>
+	</table>
+</div>

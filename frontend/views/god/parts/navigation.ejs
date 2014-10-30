@@ -1,0 +1,20 @@
+<nav class="navbar navbar-default" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">
+					Test Application
+				</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li><a href="/users">Users</a></li>
+				<li><a href="/about">About</a></li>
+				<li><a href="/projects">Projects</a></li>
+				<li><a href="/userstoproject">Users on projects</a></li>
+				<li><a href="/milestones">Milestones</a></li>
+				<li><a href="/notes">Notes</a></li>
+			</ul>
+			<p class="navbar-text navbar-right"><a href="/logout" class="navbar-right">Logout</a></p>
+			<p class="navbar-text navbar-right"><a href="/profile"><%= user.firstName + " " + user.lastName%></a></p>
+
+		</div>
+	</nav>

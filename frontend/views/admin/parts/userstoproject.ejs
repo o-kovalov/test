@@ -1,0 +1,32 @@
+<div class="well">
+	<table class="table table-striped table-hover table-condensed">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Project</th>
+				<th>Userlist</th>			
+			</tr>
+		</thead>
+		<tbody>
+			<% for(var i=0; i<userstoproject.length; i++) { %>
+				<tr id="users-to-project-row-<%= i+1 %>">
+					<td><%= i+1 %></td>
+					<td class="projectid-row-<%= i+1 %>" style="display:none"><%= userstoproject[i]._id %></td>
+					<td class="projectName"><%= userstoproject[i].projectId.name %></td>
+					<td class="userNameList">
+						<ul>
+							<% for(var y=0; y<userstoproject[i].userId.length; y++) { %>
+								<li id="userid-row-<%= y+1 %>" style="display:none"><%= userstoproject[i].userId[y]._id %></li>
+								<li>
+									<%= userstoproject[i].userId[y].lastName +' '+ userstoproject[i].userId[y].firstName %> 
+									<i class="fa fa-times delete-user-from-project userid-row-<%= y+1 %>" id="row-<%= i+1 %>"></i>
+								</li>
+							<% } %>
+						</ul>
+					</td>
+			
+				</tr>
+			<% } %>
+		</tbody>
+	</table>
+</div>

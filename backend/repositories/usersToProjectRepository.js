@@ -26,7 +26,7 @@ UsersToProjectRepository.prototype.deleteUser = function(id1, id2, callback) {
 UsersToProjectRepository.prototype.deleteByProject = function(id, callback){
 	var model = this.createModel();
 	var query = model.remove({projectId: id});
-	console.log('delete query', query);
+	console.log('delete by project');
 	query.exec(callback);
 };
 

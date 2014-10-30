@@ -1,0 +1,29 @@
+<div class="well">
+	<table class="table table-striped table-hover table-condensed">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Create</th>
+				<th>Update</th>
+				<th>Options</th>				
+			</tr>
+		</thead>
+		<tbody>
+			<% for(var i=0; i<projectlist.length; i++) { %>
+			<tr id="table-row-<%= i+1 %>">
+				<td><%= i+1 %></td>
+				<td class="id" style="display:none"><%= projectlist[i]._id %></td>
+				<td class="name" contenteditable='true'><%= projectlist[i].name %></td>
+				<td class="description" contenteditable='true'><%= projectlist[i].description %></td>
+				<td class="create"><%= projectlist[i].create.toDateString() + " " + projectlist[i].create.toLocaleTimeString()%></td>
+				<td class="update"><%= projectlist[i].update.toDateString() + " " + projectlist[i].update.toLocaleTimeString()%></td>
+				<td>
+					<i class="fa fa-floppy-o save-project" id="row-<%= i+1 %>"></i>
+				</td>				
+			</tr>
+			<% } %>
+		</tbody>
+	</table>
+</div>
