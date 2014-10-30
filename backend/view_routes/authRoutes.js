@@ -5,6 +5,7 @@ var crypto= require('crypto');
 var User = require('../schemas/user');
 var nodemailer = require('nodemailer');
 var CityRepository = require('../repositories/cityRepository');
+var RoleRepository = require('../repositories/roleRepository');
 var isLoggedIn = require('../middleware/isLoggedIn');
 
 module.exports = function(app) {
@@ -22,8 +23,29 @@ module.exports = function(app) {
 		});
 	});
 	app.get('/profile', isLoggedIn, function(req, res) {
-		res.render('../frontend/views/profile.ejs', {
-			user : req.user // get the user out of session and pass to template
+		RoleRepository.getAll(function(err, roles){
+			for (var i = 0; i < roles.length; i++){
+				if (JSON.stringify(req.user.roleId) == JSON.stringify(roles[i]._id)) {
+					var role = roles[i].name;
+				}
+			}
+			if (role === 'God') {
+				res.render('../frontend/views/god/profile.ejs', {
+					user : req.user // get the user out of session and pass to template
+				});
+			} else if (role === 'Admin') {
+				res.render('../frontend/views/admin/profile.ejs', {
+					user : req.user // get the user out of session and pass to template
+				});
+			} else if (role === 'Client'){
+				res.render('../frontend/views/client/profile.ejs', {
+					user : req.user // get the user out of session and pass to template
+				});
+			} else if (role === 'Manager'){
+				res.render('../frontend/views/manager/profile.ejs', {
+					user : req.user // get the user out of session and pass to template
+				});
+			}
 		});
 	});
 	app.get('/logout', function(req, res) {

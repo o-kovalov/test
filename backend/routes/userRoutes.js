@@ -30,6 +30,7 @@ module.exports = function(app){
 					cityId: data.cityId,
 					create: data.create,
 					update: data.create,
+					role: data.roleId
 				};
 				app.connection.query('INSERT INTO users SET ?', set, function(err, results) {
 					if (err) throw err;
@@ -53,6 +54,7 @@ module.exports = function(app){
 					salt: data.salt,
 					cityId: data.cityId,
 					update: data.update,
+					role: data.roleId
 				};
 				app.connection.query('UPDATE users SET ? WHERE _id="'+req.params.id+'"', set, function(err, results) {
 					if (err) throw err;
@@ -76,4 +78,4 @@ module.exports = function(app){
 			next();
 		});
 	}, apiResponse);
-};0
+};

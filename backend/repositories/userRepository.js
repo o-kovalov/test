@@ -20,7 +20,7 @@ UserRepository.prototype.addUser = function(data, callback) {
 
 UserRepository.prototype.getAll = function (callback) {
 	var model = this.model;
-	var query = model.find({}).populate('cityId');
+	var query = model.find({}).populate('cityId').populate('roleId');
 	query.exec(callback);
 };
 

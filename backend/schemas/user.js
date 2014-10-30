@@ -28,7 +28,11 @@ var userSchema = new Schema({
 	cityId : {
 		type : Schema.Types.ObjectId,
 		ref : 'City'
-	},	
+	},
+	roleId : {
+		type : Schema.Types.ObjectId,
+		ref : 'Role'
+	},			
 	firstName: { 
 		type: String, 
 		default: 'Adam'

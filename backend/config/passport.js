@@ -2,6 +2,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('../schemas/user');
 var UserRepository = require('../repositories/userRepository');
+var RoleRepository = require('../repositories/roleRepository');
 module.exports = function(passport, app) {
 
 	passport.serializeUser(function(user, done) {
@@ -29,32 +30,37 @@ module.exports = function(passport, app) {
 				if (user) {
 					return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
 				} else {
-					var newUser = new User();
-					newUser.email = email;
-					newUser.password = password;
-					newUser.lastName = req.body.lastName;
-					newUser.firstName = req.body.firstName;
-					newUser.cityId = req.body.cityId;
-					UserRepository.addUser(newUser, function(err, data){
-						if (err)
-							throw err;
-						var set={
-							_id:data._id,
-							firstName: data.firstName,
-							lastName: data.lastName,
-							email: data.email,
-							password: data.password,
-							salt: data.salt,
-							cityId: data.cityId,
-							create: data.create,
-							update: data.create,
-						};
-						app.connection.query('INSERT INTO users SET ?', set, function(err, results) {
-							if (err) throw err;
-							console.log('user added to sql database');
-						});						
-						return done(null, data);
-					});	
+					RoleRepository.getRoleId('Client', function(err, role) {
+						console.log('role', role);
+						var newUser = new User();
+						newUser.email = email;
+						newUser.password = password;
+						newUser.lastName = req.body.lastName;
+						newUser.firstName = req.body.firstName;
+						newUser.cityId = req.body.cityId;
+						newUser.roleId = role._id;
+						UserRepository.addUser(newUser, function(err, data){
+							if (err)
+								throw err;
+							var set={
+								_id:data._id,
+								firstName: data.firstName,
+								lastName: data.lastName,
+								email: data.email,
+								password: data.password,
+								salt: data.salt,
+								cityId: data.cityId,
+								role: role._id,
+								create: data.create,
+								update: data.create,
+							};
+							app.connection.query('INSERT INTO users SET ?', set, function(err, results) {
+								if (err) throw err;
+								console.log('user added to sql database');
+							});						
+							return done(null, data);
+						});	
+					});
 				}
 
 			});    
